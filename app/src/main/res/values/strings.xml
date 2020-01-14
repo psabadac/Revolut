@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Revolut</string>
+    <string name="country_flag">Country Flag</string>
 </resources>

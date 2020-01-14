@@ -8,4 +8,50 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+
+    <style name="CurrencyTitle">
+        <item name="android:textColor">@color/primaryBlack</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textSize">16sp</item>
+        <item name="fontFamily">@font/roboto</item>
+        <item name="layout_constraintStart_toEndOf">@+id/country_flag</item>
+        <item name="layout_constraintTop_toTopOf">parent</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="CurrencyDescription">
+        <item name="android:textSize">14sp</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:textColor">@color/primaryGray</item>
+        <item name="fontFamily">@font/roboto</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="layout_constraintStart_toEndOf">@+id/country_flag</item>
+        <item name="layout_constraintTop_toBottomOf">@+id/currency_title</item>
+    </style>
+
+    <style name="CountryFlag">
+        <item name="android:layout_width">40dp</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="layout_constraintBottom_toBottomOf">parent</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="layout_constraintTop_toTopOf">parent</item>
+        <item name="android:contentDescription">@string/country_flag</item>
+    </style>
+
+    <style name="CurrencyAmount">
+        <item name="android:layout_width">93dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:inputType">numberDecimal</item>
+        <item name="android:gravity">end</item>
+        <item name="android:hint">0</item>
+        <item name="android:textColor">@color/primaryBlack</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+        <item name="layout_constraintBottom_toBottomOf">parent</item>
+        <item name="layout_constraintTop_toTopOf">parent</item>
+        <item name="fontFamily">@font/roboto</item>
+    </style>
 </resources>
