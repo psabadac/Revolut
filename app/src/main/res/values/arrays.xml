@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <array name="currencies_list">
+        <item>@array/currency_AUD</item>
+        <item>@array/currency_BGN</item>
+        <item>@array/currency_BRL</item>
+        <item>@array/currency_CAD</item>
+        <item>@array/currency_CHF</item>
+        <item>@array/currency_CNY</item>
+        <item>@array/currency_CZK</item>
+        <item>@array/currency_DKK</item>
+        <item>@array/currency_GBP</item>
+        <item>@array/currency_HKD</item>
+        <item>@array/currency_HRK</item>
+        <item>@array/currency_HUF</item>
+        <item>@array/currency_IDR</item>
+        <item>@array/currency_ILS</item>
+        <item>@array/currency_INR</item>
+        <item>@array/currency_ISK</item>
+        <item>@array/currency_JPY</item>
+        <item>@array/currency_KRW</item>
+        <item>@array/currency_MXN</item>
+        <item>@array/currency_MYR</item>
+        <item>@array/currency_NOK</item>
+        <item>@array/currency_NZD</item>
+        <item>@array/currency_PHP</item>
+        <item>@array/currency_PLN</item>
+        <item>@array/currency_RON</item>
+        <item>@array/currency_RUB</item>
+        <item>@array/currency_SEK</item>
+        <item>@array/currency_SGD</item>
+        <item>@array/currency_THB</item>
+        <item>@array/currency_TRY</item>
+        <item>@array/currency_USD</item>
+        <item>@array/currency_ZAR</item>
+    </array>
+    <array name="currency_AUD">
+        <item>AUD</item>
+        <item>Australian Dollar</item>
+        <item>@drawable/au</item>
+    </array>
+
+    <array name="currency_BGN">
+        <item>BGN</item>
+        <item>Bulgarian Lev</item>
+        <item>@drawable/bg</item>
+    </array>
+
+    <array name="currency_BRL">
+        <item>BRL</item>
+        <item>Brazilian Real</item>
+        <item>@drawable/br</item>
+    </array>
+
+    <array name="currency_CAD">
+        <item>CAD</item>
+        <item>Canadian Dollar</item>
+        <item>@drawable/ca</item>
+    </array>
+
+    <array name="currency_CHF">
+        <item>CHF</item>
+        <item>Swiss Franc</item>
+        <item>@drawable/ch</item>
+    </array>
+
+    <array name="currency_CNY">
+        <item>CNY</item>
+        <item>Chinese Yuan Renminbi</item>
+        <item>@drawable/cn</item>
+    </array>
+
+    <array name="currency_CZK">
+        <item>CZK</item>
+        <item>Czech Koruna</item>
+        <item>@drawable/cz</item>
+    </array>
+
+    <array name="currency_DKK">
+        <item>DKK</item>
+        <item>Danish Krone</item>
+        <item>@drawable/dk</item>
+    </array>
+
+    <array name="currency_GBP">
+        <item>GBP</item>
+        <item>British Pound</item>
+        <item>@drawable/gb</item>
+    </array>
+
+    <array name="currency_HKD">
+        <item>HKD</item>
+        <item>Hong Kong Dollar</item>
+        <item>@drawable/hk</item>
+    </array>
+
+    <array name="currency_HRK">
+        <item>HRK</item>
+        <item>Croatian Kuna</item>
+        <item>@drawable/hr</item>
+    </array>
+
+    <array name="currency_HUF">
+        <item>HUF</item>
+        <item>Hungarian Forint</item>
+        <item>@drawable/hu</item>
+    </array>
+
+    <array name="currency_IDR">
+        <item>IDR</item>
+        <item>Indonesian Rupiah</item>
+        <item>@drawable/id</item>
+    </array>
+
+    <array name="currency_ILS">
+        <item>ILS</item>
+        <item>Israeli New Sheqel</item>
+        <item>@drawable/il</item>
+    </array>
+
+    <array name="currency_INR">
+        <item>INR</item>
+        <item>Indian Rupee</item>
+        <item>@drawable/in</item>
+    </array>
+
+    <array name="currency_ISK">
+        <item>ISK</item>
+        <item>Icelandic Krona</item>
+        <item>@drawable/ie</item>
+    </array>
+
+    <array name="currency_JPY">
+        <item>JPY</item>
+        <item>Japanese Yen</item>
+        <item>@drawable/jp</item>
+    </array>
+
+    <array name="currency_KRW">
+        <item>KRW</item>
+        <item>South Korean Won</item>
+        <item>@drawable/kr</item>
+    </array>
+
+    <array name="currency_MXN">
+        <item>MXN</item>
+        <item>Mexican Peso</item>
+        <item>@drawable/mx</item>
+    </array>
+
+    <array name="currency_MYR">
+        <item>MYR</item>
+        <item>Malaysian Ringgit</item>
+        <item>@drawable/my</item>
+    </array>
+
+    <array name="currency_NOK">
+        <item>NOK</item>
+        <item>Norwegian Krona</item>
+        <item>@drawable/no</item>
+    </array>
+
+    <array name="currency_NZD">
+        <item>NZD</item>
+        <item>New Zealand Dollar</item>
+        <item>@drawable/nz</item>
+    </array>
+
+    <array name="currency_PHP">
+        <item>PHP</item>
+        <item>Philippine Peso</item>
+        <item>@drawable/ph</item>
+    </array>
+
+    <array name="currency_PLN">
+        <item>PLN</item>
+        <item>Polish Zloty</item>
+        <item>@drawable/pl</item>
+    </array>
+
+    <array name="currency_RON">
+        <item>RON</item>
+        <item>Romanian Leu</item>
+        <item>@drawable/ro</item>
+    </array>
+
+    <array name="currency_RUB">
+        <item>RUB</item>
+        <item>Russian Ruble</item>
+        <item>@drawable/ru</item>
+    </array>
+
+    <array name="currency_SEK">
+        <item>SEK</item>
+        <item>Swedish Krona</item>
+        <item>@drawable/se</item>
+    </array>
+
+    <array name="currency_SGD">
+        <item>SGD</item>
+        <item>Singapore Dollar</item>
+        <item>@drawable/sg</item>
+    </array>
+
+    <array name="currency_THB">
+        <item>THB</item>
+        <item>Thai Baht</item>
+        <item>@drawable/th</item>
+    </array>
+
+    <array name="currency_TRY">
+        <item>TRY</item>
+        <item>Turkish Lira</item>
+        <item>@drawable/tr</item>
+    </array>
+
+    <array name="currency_USD">
+        <item>USD</item>
+        <item>US Dollar</item>
+        <item>@drawable/us</item>
+    </array>
+
+    <array name="currency_ZAR">
+        <item>ZAR</item>
+        <item>South African Rand</item>
+        <item>@drawable/za</item>
+    </array>
+</resources>
