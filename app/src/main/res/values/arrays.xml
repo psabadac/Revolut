@@ -128,7 +128,7 @@
     <array name="currency_ISK">
         <item>ISK</item>
         <item>Icelandic Krona</item>
-        <item>@drawable/ie</item>
+        <item>@drawable/is</item>
     </array>
 
     <array name="currency_JPY">
