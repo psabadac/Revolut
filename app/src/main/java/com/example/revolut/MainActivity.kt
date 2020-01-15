@@ -26,9 +26,16 @@ class MainActivity : AppCompatActivity() {
             layoutManager = viewManager
             adapter = viewAdapter
         }
+
+        viewAdapter.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver() {
+            override fun onItemRangeMoved(fromPosition: Int, toPosition: Int, itemCount: Int) {
+                super.onItemRangeMoved(fromPosition, toPosition, itemCount)
+                recyclerView.scrollToPosition(0)
+            }
+        })
     }
 
-    private fun getCurrencyList() : Array<Currency> {
+    private fun getCurrencyList(): MutableList<Currency> {
         val currencyList = mutableListOf<Currency>()
         val invalidResourceId = -1
         @StyleableRes val titleIndex = 0
@@ -51,6 +58,6 @@ class MainActivity : AppCompatActivity() {
         }
         currencyListTypedArray.recycle()
 
-        return currencyList.toTypedArray()
+        return currencyList
     }
 }
