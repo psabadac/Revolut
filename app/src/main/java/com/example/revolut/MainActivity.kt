@@ -1,18 +1,56 @@
 package com.example.revolut
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import kotlinx.android.synthetic.main.activity_main.*
+import androidx.annotation.StyleableRes
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var viewAdapter: RecyclerView.Adapter<*>
+    private lateinit var viewManager: RecyclerView.LayoutManager
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        currency_title.text = "USD"
-        currency_description.text = "US Dollar"
-        country_flag.setBackgroundResource(R.drawable.us)
-        currency_amount.setText("1183.06")
+        viewManager = LinearLayoutManager(this)
+        viewAdapter = CurrencyAdapter(getCurrencyList())
+
+        recyclerView = findViewById<RecyclerView>(R.id.currency_list).apply {
+            setHasFixedSize(true)
+            layoutManager = viewManager
+            adapter = viewAdapter
+        }
+    }
+
+    private fun getCurrencyList() : Array<Currency> {
+        val currencyList = mutableListOf<Currency>()
+        val invalidResourceId = -1
+        @StyleableRes val titleIndex = 0
+        @StyleableRes val descriptionIndex = 1
+        @StyleableRes val countryFlagIndex = 2
+
+        val currencyListTypedArray = resources.obtainTypedArray(R.array.currencies_list)
+        for (i in 0..currencyListTypedArray.length()) {
+            val currencyId = currencyListTypedArray.getResourceId(i, invalidResourceId)
+            if (currencyId == invalidResourceId) {
+                continue
+            }
+
+            val currencyTypedArray = resources.obtainTypedArray(currencyId)
+            val currency = Currency(currencyTypedArray.getString(titleIndex),
+                                    currencyTypedArray.getString(descriptionIndex),
+                                    currencyTypedArray.getResourceId(countryFlagIndex, invalidResourceId))
+            currencyList.add(currency)
+            currencyTypedArray.recycle()
+        }
+        currencyListTypedArray.recycle()
+
+        return currencyList.toTypedArray()
     }
 }
