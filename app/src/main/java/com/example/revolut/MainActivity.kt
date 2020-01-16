@@ -5,6 +5,7 @@ import androidx.annotation.StyleableRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import kotlin.concurrent.fixedRateTimer
 
 
 class MainActivity : AppCompatActivity() {
@@ -33,6 +34,12 @@ class MainActivity : AppCompatActivity() {
                 recyclerView.scrollToPosition(0)
             }
         })
+
+        fixedRateTimer("timer", false, 0, 1000) {
+            this@MainActivity.runOnUiThread {
+                (viewAdapter as CurrencyAdapter).updateEachSecond()
+            }
+        }
     }
 
     private fun getCurrencyList(): MutableList<Currency> {
