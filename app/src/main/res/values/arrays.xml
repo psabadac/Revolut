@@ -2,6 +2,7 @@
 <resources>
 
     <array name="currencies_list">
+        <item>@array/currency_EUR</item>
         <item>@array/currency_AUD</item>
         <item>@array/currency_BGN</item>
         <item>@array/currency_BRL</item>
@@ -81,6 +82,12 @@
         <item>DKK</item>
         <item>Danish Krone</item>
         <item>@drawable/dk</item>
+    </array>
+
+    <array name="currency_EUR">
+        <item>EUR</item>
+        <item>EURO</item>
+        <item>@drawable/eu</item>
     </array>
 
     <array name="currency_GBP">
