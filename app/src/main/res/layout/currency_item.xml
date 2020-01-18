@@ -4,12 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="16dp">
+    android:padding="@dimen/default_padding">
 
     <ImageView
         android:id="@+id/country_flag"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        style="@style/CountryFlag"
         android:contentDescription="@string/country_flag"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -18,45 +17,23 @@
 
     <TextView
         android:id="@+id/currency_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingStart="16dp"
-        android:paddingLeft="16dp"
-        android:paddingEnd="16dp"
-        android:paddingRight="16dp"
-        android:textColor="@color/primaryBlack"
-        android:textSize="16sp"
-        app:fontFamily="@font/roboto_medium"
+        style="@style/CurrencyTitle"
         app:layout_constraintStart_toEndOf="@+id/country_flag"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="USD" />
 
     <TextView
         android:id="@+id/currency_description"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingStart="16dp"
-        android:paddingLeft="16dp"
-        android:paddingEnd="16dp"
-        android:paddingRight="16dp"
-        android:textSize="14sp"
-        app:fontFamily="@font/roboto_regular"
+        style="@style/CurrencyDescription"
         app:layout_constraintStart_toEndOf="@+id/country_flag"
         app:layout_constraintTop_toBottomOf="@+id/currency_title"
         tools:text="US Dollar" />
 
     <EditText
         android:id="@+id/currency_amount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="end"
+        style="@style/CurrencyAmount"
         android:hint="@string/zero_value"
         android:importantForAutofill="no"
-        android:inputType="numberDecimal"
-        android:minWidth="40dp"
-        android:textColor="@color/primaryBlack"
-        android:textSize="20sp"
-        app:fontFamily="@font/roboto_medium"
         app:layout_constrainedWidth="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

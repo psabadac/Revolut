@@ -14,9 +14,9 @@ class CurrencyAdapter(private val currencyList: MutableList<Currency>) :
     private val topPosition = 0
     private val decimalFormatter = DecimalFormat("#.##")
 
-    private var currencyBase:String? = "EUR"
-    private var currentAmount = 0.0
-    private var currencyResponse = getCurrencyResponse(currencyBase)
+    private var base:String? = "EUR"
+    private var amount = 100.0
+    private var currencyResponse = getCurrencyResponse(base)
 
     class CurrencyViewHolder(val view: ViewGroup) : RecyclerView.ViewHolder(view)
 
@@ -32,49 +32,57 @@ class CurrencyAdapter(private val currencyList: MutableList<Currency>) :
 
     override fun onBindViewHolder(holder: CurrencyViewHolder, position: Int) {
         val currency = currencyList[position]
-
-        holder.view.currency_title.text = currency.title
-        holder.view.currency_description.text = currency.description
-        holder.view.country_flag.setBackgroundResource(currency.countryFlag)
+        val root = holder.view
+        root.currency_title.text = currency.title
+        root.currency_description.text = currency.description
+        root.country_flag.setBackgroundResource(currency.countryFlag)
 
         if (holder.adapterPosition != topPosition) {
             val index : Double = currencyResponse.rates[currency.title] ?: 1.0
-            val amount = index * currentAmount
+            val amount = index * amount
             val stringAmount = decimalFormatter.format(amount)
-            holder.view.currency_amount.text.replace(0, holder.view.currency_amount.text.length, stringAmount)
+            root.currency_amount.text.replace(0, root.currency_amount.text.length, stringAmount)
         } else {
-            val stringAmount = decimalFormatter.format(currentAmount)
-            holder.view.currency_amount.text.replace(0, holder.view.currency_amount.text.length, stringAmount)
+            val stringAmount = decimalFormatter.format(amount)
+            root.currency_amount.text.replace(0, root.currency_amount.text.length, stringAmount)
         }
 
-        holder.view.currency_amount.doAfterTextChanged {
+        root.currency_amount.doAfterTextChanged {
             val stringAmount = it.toString()
-            if (holder.adapterPosition == topPosition && currentAmount.toString() != stringAmount) {
-                currentAmount = if (stringAmount.isNotEmpty()) stringAmount.toDouble() else 0.0
+            if (holder.adapterPosition == topPosition && amount.toString() != stringAmount) {
+                amount = if (stringAmount.isNotEmpty()) stringAmount.toDouble() else 0.0
             }
         }
 
-        holder.view.setOnClickListener {
-            val stringAmount = holder.view.currency_amount.text.toString()
-            holder.view.currency_amount.requestFocus()
-            holder.view.currency_amount.setSelection(stringAmount.length)
-            moveItem(holder.adapterPosition, stringAmount)
+        root.setOnClickListener {
+            val stringAmount = root.currency_amount.text.toString()
+            root.currency_amount.requestFocus()
+            root.currency_amount.setSelection(stringAmount.length)
+
+            val fromPosition = holder.adapterPosition
+
+            if (canMoveItem(fromPosition)) {
+                updateCurrency(currencyList[fromPosition].title, stringAmount)
+                moveItem(fromPosition)
+            }
         }
     }
 
-    private fun moveItem(fromPosition: Int, stringAmount: String) {
-        if (fromPosition == topPosition || fromPosition < topPosition) return
-
+    private fun moveItem(fromPosition: Int) {
         val movingItem = currencyList.removeAt(fromPosition)
         currencyList.add(topPosition, movingItem)
-        currencyBase = movingItem.title
-        currentAmount = if (stringAmount.isNotEmpty()) stringAmount.toDouble() else 0.0
-        currencyResponse = getCurrencyResponse(currencyBase)
         notifyItemMoved(fromPosition,topPosition)
     }
 
+    private fun updateCurrency(newBase: String?, newAmount: String) {
+        base = newBase
+        amount = if (newAmount.isNotEmpty()) newAmount.toDouble() else 0.0
+    }
+
+    private fun canMoveItem(fromPosition: Int) : Boolean = !(fromPosition == topPosition || fromPosition < topPosition)
+
     fun updateEachSecond() {
-        currencyResponse = getCurrencyResponse(currencyBase)
+        currencyResponse = getCurrencyResponse(base)
         notifyDataSetChanged()
     }
 
