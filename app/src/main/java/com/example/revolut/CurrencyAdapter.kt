@@ -6,17 +6,15 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.currency_item.view.*
 import java.text.DecimalFormat
-import kotlin.random.Random
 
 class CurrencyAdapter(private val currencyList: MutableList<Currency>) :
     RecyclerView.Adapter<CurrencyAdapter.CurrencyViewHolder>() {
 
     private val topPosition = 0
     private val decimalFormatter = DecimalFormat("#.##")
-
-    private var base:String? = "EUR"
+    private var currencyResponse: CurrencyResponse? = null
+    private var base: String? = "EUR"
     private var amount = 100.0
-    private var currencyResponse = getCurrencyResponse(base)
 
     class CurrencyViewHolder(val view: ViewGroup) : RecyclerView.ViewHolder(view)
 
@@ -38,7 +36,7 @@ class CurrencyAdapter(private val currencyList: MutableList<Currency>) :
         root.country_flag.setBackgroundResource(currency.countryFlag)
 
         if (holder.adapterPosition != topPosition) {
-            val index : Double = currencyResponse.rates[currency.title] ?: 1.0
+            val index: Double = currencyResponse?.rates?.get(currency.title) ?: 1.0
             val amount = index * amount
             val stringAmount = decimalFormatter.format(amount)
             root.currency_amount.text.replace(0, root.currency_amount.text.length, stringAmount)
@@ -71,7 +69,7 @@ class CurrencyAdapter(private val currencyList: MutableList<Currency>) :
     private fun moveItem(fromPosition: Int) {
         val movingItem = currencyList.removeAt(fromPosition)
         currencyList.add(topPosition, movingItem)
-        notifyItemMoved(fromPosition,topPosition)
+        notifyItemMoved(fromPosition, topPosition)
     }
 
     private fun updateCurrency(newBase: String?, newAmount: String) {
@@ -79,17 +77,17 @@ class CurrencyAdapter(private val currencyList: MutableList<Currency>) :
         amount = if (newAmount.isNotEmpty()) newAmount.toDouble() else 0.0
     }
 
-    private fun canMoveItem(fromPosition: Int) : Boolean = !(fromPosition == topPosition || fromPosition < topPosition)
+    private fun canMoveItem(fromPosition: Int): Boolean =
+        !(fromPosition == topPosition || fromPosition < topPosition)
 
-    fun updateEachSecond() {
-        currencyResponse = getCurrencyResponse(base)
-        notifyDataSetChanged()
+    fun updateEachSecond(newCurrencyResponse: CurrencyResponse?) {
+        if (newCurrencyResponse != null) {
+            currencyResponse = newCurrencyResponse
+            notifyDataSetChanged()
+        }
     }
 
-    private fun getCurrencyResponse(baseCurrency: String?) : CurrencyResponse {
-        val currencyListWithoutBaseCurrency =  currencyList.filter { it.title != baseCurrency }.map { it.title to Random.nextDouble(0.1, 1.9) }.toMap()
-        return CurrencyResponse("2018-09-06", baseCurrency, currencyListWithoutBaseCurrency)
-    }
+    fun getBase(): String? = base
 
     override fun getItemCount() = currencyList.size
 }

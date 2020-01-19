@@ -3,21 +3,24 @@ package com.example.revolut
 import android.os.Bundle
 import androidx.annotation.StyleableRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlin.concurrent.fixedRateTimer
 
-
 class MainActivity : AppCompatActivity() {
 
     private lateinit var recyclerView: RecyclerView
-    private lateinit var viewAdapter: RecyclerView.Adapter<*>
+    private lateinit var viewAdapter: CurrencyAdapter
     private lateinit var viewManager: RecyclerView.LayoutManager
-
+    private lateinit var currencyViewModel: CurrencyViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        currencyViewModel = ViewModelProviders.of(this)[CurrencyViewModel::class.java]
 
         viewManager = LinearLayoutManager(this)
         viewAdapter = CurrencyAdapter(getCurrencyList())
@@ -35,11 +38,12 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
+        currencyViewModel.getCurrencyRepository().observe(this, Observer {
+            viewAdapter.updateEachSecond(it)
+        })
+
         fixedRateTimer("timer", false, 0, 1000) {
-            this@MainActivity.runOnUiThread {
-                (viewAdapter as CurrencyAdapter).updateEachSecond()
-            }
-        }
+            currencyViewModel.updateCurrency(viewAdapter.getBase()) }
     }
 
     private fun getCurrencyList(): MutableList<Currency> {
@@ -57,9 +61,11 @@ class MainActivity : AppCompatActivity() {
             }
 
             val currencyTypedArray = resources.obtainTypedArray(currencyId)
-            val currency = Currency(currencyTypedArray.getString(titleIndex),
-                                    currencyTypedArray.getString(descriptionIndex),
-                                    currencyTypedArray.getResourceId(countryFlagIndex, invalidResourceId))
+            val currency = Currency(
+                currencyTypedArray.getString(titleIndex),
+                currencyTypedArray.getString(descriptionIndex),
+                currencyTypedArray.getResourceId(countryFlagIndex, invalidResourceId)
+            )
             currencyList.add(currency)
             currencyTypedArray.recycle()
         }
