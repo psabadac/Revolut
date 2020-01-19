@@ -22,7 +22,7 @@ class CurrencyAdapter(private val currencyList: MutableList<Currency>) :
     private val decimalFormatter = DecimalFormat("#.##")
     private var currencyResponse: CurrencyResponse? = null
     private var base: String? = defaultCurrency
-    private var amount = defaultAmount
+    private var amount: Double? = defaultAmount
 
     class CurrencyViewHolder(val view: ViewGroup) : RecyclerView.ViewHolder(view)
 
@@ -43,20 +43,33 @@ class CurrencyAdapter(private val currencyList: MutableList<Currency>) :
         root.currency_description.text = currency.description
         root.country_flag.setBackgroundResource(currency.countryFlag)
 
-        if (holder.adapterPosition != topPosition) {
-            val index: Double = currencyResponse?.rates?.get(currency.title) ?: 1.0
-            val amount = index * amount
-            val stringAmount = decimalFormatter.format(amount)
-            root.currency_amount.text.replace(0, root.currency_amount.text.length, stringAmount)
+        val currentAmount = amount
+        if (currentAmount is Double) {
+            if (holder.adapterPosition != topPosition) {
+                val index: Double? = currencyResponse?.rates?.get(currency.title)
+                val newAmount = if (index is Double) index * currentAmount else null
+                if (newAmount is Double) {
+                    val stringAmount = decimalFormatter.format(newAmount)
+                    root.currency_amount.text.replace(
+                        0,
+                        root.currency_amount.text.length,
+                        stringAmount
+                    )
+                } else {
+                    root.currency_amount.text.clear()
+                }
+            } else {
+                val stringAmount = decimalFormatter.format(currentAmount)
+                root.currency_amount.text.replace(0, root.currency_amount.text.length, stringAmount)
+            }
         } else {
-            val stringAmount = decimalFormatter.format(amount)
-            root.currency_amount.text.replace(0, root.currency_amount.text.length, stringAmount)
+            root.currency_amount.text.clear()
         }
 
         root.currency_amount.doAfterTextChanged {
             val stringAmount = it.toString()
             if (holder.adapterPosition == topPosition && amount.toString() != stringAmount) {
-                amount = if (stringAmount.isNotEmpty()) stringAmount.toDouble() else 0.0
+                amount = stringAmount.toDoubleOrNull()
             }
         }
 
@@ -82,7 +95,7 @@ class CurrencyAdapter(private val currencyList: MutableList<Currency>) :
 
     private fun updateCurrency(newBase: String?, newAmount: String) {
         base = newBase
-        amount = if (newAmount.isNotEmpty()) newAmount.toDouble() else 0.0
+        amount = newAmount.toDoubleOrNull()
     }
 
     private fun canMoveItem(fromPosition: Int): Boolean =
