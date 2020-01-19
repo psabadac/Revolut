@@ -92,6 +92,8 @@ class CurrencyAdapter(private val currencyList: MutableList<Currency>) :
         if (newCurrencyResponse != null) {
             currencyResponse = newCurrencyResponse
             notifyDataSetChanged()
+        } else {
+            notifyDataSetChanged()
         }
     }
 
