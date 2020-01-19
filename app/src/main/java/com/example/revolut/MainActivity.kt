@@ -7,9 +7,15 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.revolut.adapter.CurrencyAdapter
+import com.example.revolut.model.Currency
+import com.example.revolut.viewmodel.CurrencyViewModel
+import java.util.concurrent.TimeUnit
 import kotlin.concurrent.fixedRateTimer
 
 class MainActivity : AppCompatActivity() {
+
+    private val oneSecond = TimeUnit.SECONDS.toMillis(1)
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: CurrencyAdapter
@@ -34,7 +40,7 @@ class MainActivity : AppCompatActivity() {
         viewAdapter.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver() {
             override fun onItemRangeMoved(fromPosition: Int, toPosition: Int, itemCount: Int) {
                 super.onItemRangeMoved(fromPosition, toPosition, itemCount)
-                recyclerView.scrollToPosition(0)
+                recyclerView.scrollToPosition(CurrencyAdapter.topPosition)
             }
         })
 
@@ -42,8 +48,9 @@ class MainActivity : AppCompatActivity() {
             viewAdapter.updateEachSecond(it)
         })
 
-        fixedRateTimer("timer", false, 0, 1000) {
-            currencyViewModel.updateCurrency(viewAdapter.getBase()) }
+        fixedRateTimer("timer", false, 0, oneSecond) {
+            currencyViewModel.updateCurrency(viewAdapter.getBase())
+        }
     }
 
     private fun getCurrencyList(): MutableList<Currency> {

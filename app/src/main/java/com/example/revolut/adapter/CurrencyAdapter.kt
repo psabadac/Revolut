@@ -1,20 +1,28 @@
-package com.example.revolut
+package com.example.revolut.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.widget.doAfterTextChanged
 import androidx.recyclerview.widget.RecyclerView
+import com.example.revolut.model.Currency
+import com.example.revolut.model.CurrencyResponse
+import com.example.revolut.R
 import kotlinx.android.synthetic.main.currency_item.view.*
 import java.text.DecimalFormat
 
 class CurrencyAdapter(private val currencyList: MutableList<Currency>) :
     RecyclerView.Adapter<CurrencyAdapter.CurrencyViewHolder>() {
 
-    private val topPosition = 0
+    companion object {
+        const val topPosition = 0
+        const val defaultCurrency = "EUR"
+        const val defaultAmount = 100.0
+    }
+
     private val decimalFormatter = DecimalFormat("#.##")
     private var currencyResponse: CurrencyResponse? = null
-    private var base: String? = "EUR"
-    private var amount = 100.0
+    private var base: String? = defaultCurrency
+    private var amount = defaultAmount
 
     class CurrencyViewHolder(val view: ViewGroup) : RecyclerView.ViewHolder(view)
 

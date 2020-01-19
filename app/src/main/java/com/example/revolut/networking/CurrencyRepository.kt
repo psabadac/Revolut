@@ -1,6 +1,7 @@
-package com.example.revolut
+package com.example.revolut.networking
 
 import androidx.lifecycle.MutableLiveData
+import com.example.revolut.model.CurrencyResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
