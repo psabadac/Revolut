@@ -3,4 +3,5 @@
     <string name="country_flag">Country Flag</string>
     <string name="zero_value" translatable="false">0</string>
     <string name="rates">Rates</string>
+    <string name="flurry_api_key" translatable="false">QJZK4YZYY5KXFSMNP2VB</string>
 </resources>

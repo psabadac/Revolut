@@ -4,9 +4,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.widget.doAfterTextChanged
 import androidx.recyclerview.widget.RecyclerView
+import com.example.revolut.R
 import com.example.revolut.model.Currency
 import com.example.revolut.model.CurrencyResponse
-import com.example.revolut.R
+import com.example.revolut.utils.Constants
+import com.flurry.android.FlurryAgent
 import kotlinx.android.synthetic.main.currency_item.view.*
 import java.text.DecimalFormat
 
@@ -74,8 +76,9 @@ class CurrencyAdapter(private val currencyList: MutableList<Currency>) :
 
         root.currency_amount.doAfterTextChanged {
             val stringAmount = it.toString()
-            if (holder.adapterPosition == topPosition && amount.toString() != stringAmount) {
+            if (holder.adapterPosition == topPosition && amount != stringAmount.toDoubleOrNull()) {
                 amount = stringAmount.toDoubleOrNull()
+                FlurryAgent.logEvent(Constants.CURRENCY_UPDATED_EVENT, mapOf(Constants.CURRENCY_PARAM to base, Constants.AMOUNT_PARAM to stringAmount))
             }
         }
 
@@ -102,6 +105,7 @@ class CurrencyAdapter(private val currencyList: MutableList<Currency>) :
     private fun updateCurrency(newBase: String?, newAmount: String) {
         base = newBase
         amount = newAmount.toDoubleOrNull()
+        FlurryAgent.logEvent(Constants.CURRENCY_UPDATED_EVENT, mapOf(Constants.CURRENCY_PARAM to base, Constants.AMOUNT_PARAM to newAmount))
     }
 
     private fun canMoveItem(fromPosition: Int): Boolean =
