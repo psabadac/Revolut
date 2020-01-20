@@ -66,6 +66,12 @@ class CurrencyAdapter(private val currencyList: MutableList<Currency>) :
             root.currency_amount.text.clear()
         }
 
+        root.currency_amount.setOnFocusChangeListener { v, hasFocus ->
+            if (hasFocus && holder.adapterPosition != topPosition) {
+                root.performClick()
+            }
+        }
+
         root.currency_amount.doAfterTextChanged {
             val stringAmount = it.toString()
             if (holder.adapterPosition == topPosition && amount.toString() != stringAmount) {
