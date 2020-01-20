@@ -1,5 +1,6 @@
 package com.example.revolut
 
+import android.os.Build
 import android.os.Bundle
 import androidx.annotation.StyleableRes
 import androidx.appcompat.app.AppCompatActivity
@@ -12,6 +13,7 @@ import com.example.revolut.model.Currency
 import com.example.revolut.viewmodel.CurrencyViewModel
 import java.util.concurrent.TimeUnit
 import kotlin.concurrent.fixedRateTimer
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -49,7 +51,11 @@ class MainActivity : AppCompatActivity() {
         })
 
         fixedRateTimer("timer", false, 0, oneSecond) {
-            currencyViewModel.updateCurrency(viewAdapter.getBase())
+            if (isEmulator()) {
+                currencyViewModel.updateCurrency(viewAdapter.getBase(), getCurrencyList())
+            } else {
+                currencyViewModel.updateCurrency(viewAdapter.getBase())
+            }
         }
     }
 
@@ -80,4 +86,22 @@ class MainActivity : AppCompatActivity() {
 
         return currencyList
     }
+
+    private fun isEmulator() = (Build.BRAND.startsWith("generic") && Build.DEVICE.startsWith("generic")
+                || Build.FINGERPRINT.startsWith("generic")
+                || Build.FINGERPRINT.startsWith("unknown")
+                || Build.HARDWARE.contains("goldfish")
+                || Build.HARDWARE.contains("ranchu")
+                || Build.MODEL.contains("google_sdk")
+                || Build.MODEL.contains("Emulator")
+                || Build.MODEL.contains("Android SDK built for x86")
+                || Build.MANUFACTURER.contains("Genymotion")
+                || Build.PRODUCT.contains("sdk_google")
+                || Build.PRODUCT.contains("google_sdk")
+                || Build.PRODUCT.contains("sdk")
+                || Build.PRODUCT.contains("sdk_x86")
+                || Build.PRODUCT.contains("vbox86p")
+                || Build.PRODUCT.contains("emulator")
+                || Build.PRODUCT.contains("simulator"))
+
 }

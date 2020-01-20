@@ -16,7 +16,6 @@ class CurrencyViewModel : ViewModel() {
        CurrencyRepository.getCurrencyResponse(base, currencyData)
     }
 
-    // For testing purposes only
     fun updateCurrency(base: String?, currencyList: List<Currency>) {
         val currencyListWithoutBaseCurrency =  currencyList.filter { it.title != base }.map { it.title to Random.nextDouble(0.1, 1.9) }.toMap()
         currencyData.postValue(CurrencyResponse("2018-09-06", base, currencyListWithoutBaseCurrency))
