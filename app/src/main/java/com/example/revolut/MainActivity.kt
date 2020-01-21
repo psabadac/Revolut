@@ -1,17 +1,15 @@
 package com.example.revolut
 
-import android.os.Build
 import android.os.Bundle
-import androidx.annotation.StyleableRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.revolut.adapter.CurrencyAdapter
-import com.example.revolut.model.Currency
 import com.example.revolut.utils.Utils
 import com.example.revolut.viewmodel.CurrencyViewModel
+import com.facebook.appevents.AppEventsLogger
 import java.util.concurrent.TimeUnit
 import kotlin.concurrent.fixedRateTimer
 
@@ -32,7 +30,7 @@ class MainActivity : AppCompatActivity() {
         currencyViewModel = ViewModelProviders.of(this)[CurrencyViewModel::class.java]
 
         viewManager = LinearLayoutManager(this)
-        viewAdapter = CurrencyAdapter(Utils.getCurrencyList(resources))
+        viewAdapter = CurrencyAdapter(Utils.getCurrencyList(resources), AppEventsLogger.newLogger(this))
 
         recyclerView = findViewById<RecyclerView>(R.id.currency_list).apply {
             setHasFixedSize(true)

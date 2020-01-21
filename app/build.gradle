@@ -9,7 +9,7 @@ android {
     buildToolsVersion "29.0.2"
     defaultConfig {
         applicationId "com.example.revolut"
-        minSdkVersion 16
+        minSdkVersion 15
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -39,6 +39,4 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
 
-    implementation 'com.google.android.gms:play-services-base:17.1.0'
-    implementation 'com.flurry.android:analytics:12.2.0'
-}
+    implementation 'com.facebook.android:facebook-android-sdk:[5,6)'}

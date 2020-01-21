@@ -7,12 +7,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.revolut.R
 import com.example.revolut.model.Currency
 import com.example.revolut.model.CurrencyResponse
-import com.example.revolut.utils.Constants
-import com.flurry.android.FlurryAgent
+import com.facebook.appevents.AppEventsLogger
 import kotlinx.android.synthetic.main.currency_item.view.*
+import java.math.BigDecimal
 import java.text.DecimalFormat
 
-class CurrencyAdapter(private val currencyList: MutableList<Currency>) :
+class CurrencyAdapter(private val currencyList: MutableList<Currency>, val logger: AppEventsLogger) :
     RecyclerView.Adapter<CurrencyAdapter.CurrencyViewHolder>() {
 
     companion object {
@@ -78,7 +78,8 @@ class CurrencyAdapter(private val currencyList: MutableList<Currency>) :
             val stringAmount = it.toString()
             if (holder.adapterPosition == topPosition && amount != stringAmount.toDoubleOrNull()) {
                 amount = stringAmount.toDoubleOrNull()
-                FlurryAgent.logEvent(Constants.CURRENCY_UPDATED_EVENT, mapOf(Constants.CURRENCY_PARAM to base, Constants.AMOUNT_PARAM to stringAmount))
+                val tmpAmount:Double = amount ?: 0.0
+                logger.logPurchase(BigDecimal.valueOf(tmpAmount), java.util.Currency.getInstance(base))
             }
         }
 
@@ -105,8 +106,8 @@ class CurrencyAdapter(private val currencyList: MutableList<Currency>) :
     private fun updateCurrency(newBase: String?, newAmount: String) {
         base = newBase
         amount = newAmount.toDoubleOrNull()
-        FlurryAgent.logEvent(Constants.CURRENCY_UPDATED_EVENT, mapOf(Constants.CURRENCY_PARAM to base, Constants.AMOUNT_PARAM to newAmount))
-    }
+        val tmpAmount:Double = amount ?: 0.0
+        logger.logPurchase(BigDecimal.valueOf(tmpAmount), java.util.Currency.getInstance(base))    }
 
     private fun canMoveItem(fromPosition: Int): Boolean =
         !(fromPosition == topPosition || fromPosition < topPosition)
